@@ -1,7 +1,7 @@
 # snmp pkg install
 ---
 - name: apt-update
-  hosts: node-1
+  hosts: all
   tasks:
     - name: apt-update
       apt:
@@ -17,7 +17,7 @@
 # cp /etc/snmp/snmpd.conf
 #---
 - name: snmpd.conf backup
-  hosts: node-1
+  hosts: all
   tasks:
     - shell: cp /etc/snmp/snmpd.conf /etc/snmp/snmpd.conf.bak
     - shell: ls /etc/snmp/
@@ -25,7 +25,7 @@
 # snmpd.conf edit
 #---
 - name: snmpd.conf edit
-  hosts: node-1
+  hosts: all
   tasks:
     - name: snmpd.conf delete
       file:
@@ -41,7 +41,7 @@
 # service enable
 #---
 - name: snmpd service enable
-  hosts: node-1
+  hosts: all
   tasks:
     - shell: systemctl restart snmpd
     - shell: systemctl enable snmpd
