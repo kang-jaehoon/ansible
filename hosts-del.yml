@@ -1,0 +1,21 @@
+---
+  - name : hosts del
+    hosts: all
+    tasks:
+      - name: del host
+        lineinfile:
+           path: '/etc/hosts'
+           line: "{{ item }}"
+           state: absent
+           insertafter : EOF
+        with_items:
+           - 192.168.10.110     ansible
+           - 192.168.10.111     servera
+           - 192.168.10.112     serverb
+           - 192.168.10.113     serverc
+
+      - shell: cat /etc/hosts
+        register: shell_result
+
+      - debug:
+          var: shell_result.stdout_lines
