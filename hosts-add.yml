@@ -1,6 +1,6 @@
 ---
   - name : hosts add
-    hosts: node-1
+    hosts: all
     tasks:
       - name: Add host
         lineinfile:
