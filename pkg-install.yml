@@ -5,7 +5,6 @@
     - name: Package Install
       apt:
        name:
-        - apt-transport-https
-        - software-properties-common
+        - nfs-common
        state: present
 
