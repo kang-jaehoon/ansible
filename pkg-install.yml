@@ -1,0 +1,11 @@
+## Package Install
+- name: Package Install 
+  hosts: all
+  tasks:
+    - name: Package Install
+      apt:
+       name:
+        - apt-transport-https
+        - software-properties-common
+       state: present
+
