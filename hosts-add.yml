@@ -9,10 +9,7 @@
            state: present
            insertafter : EOF
         with_items:
-           - 20.1.1.110     ansible
-           - 20.1.1.111     servera
-           - 20.1.1.112     serverb
-           - 20.1.1.113     serverc
+           - 183.111.96.110     registry.n3ncloud
 
       - shell: cat /etc/hosts
         register: shell_result
