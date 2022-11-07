@@ -1,0 +1,26 @@
+---
+- hosts: "{{ hosts }}"
+  remote_user: ec2-user
+  become: true
+  tasks:
+   - name: user_keychange
+     command: cp -Rp /home/TMON/{{ user }}/.ssh /home/TMON/{{ user }}/.ssh_bak 
+   - name: keychange
+     template:
+       src: ./template/user_keys/ssh-authorized-20211220.pem 
+       dest: /home/TMON/{{ user }}/.ssh/ssh-authorized-20211220.pem
+   - name: keychange
+     template:
+       src: ./template/user_keys/config
+       dest: /home/TMON/{{ user }}/.ssh/config
+   - name: keychange
+     template:
+       src: ./template/user_keys/authorized_keys
+       dest: /home/TMON/{{ user }}/.ssh/authorized_keys
+   - name: keychange
+     command: chown {{ user }}:{{ group }} -R /home/TMON/{{ user }}/.ssh/
+
+  vars:
+    hosts: "all"
+    group: "tmon-dba"
+    user: "rosemary189"

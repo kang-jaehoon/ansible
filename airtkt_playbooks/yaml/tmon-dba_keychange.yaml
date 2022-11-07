@@ -1,0 +1,46 @@
+---
+- hosts: "{{ hosts }}"
+  remote_user: ec2-user
+  become: true
+  tasks:
+   - name: old .ssh baskup
+     command: cp -Rp /home/TMON/{{ item }}/.ssh /home/TMON/{{ item }}/.ssh_bak 
+     with_items:
+      - "{{ user }}"
+   - name: ssh-authorized add
+     template:
+       src: ./template/user_keys/ssh-authorized-20211220.pem 
+       dest: /home/TMON/{{ item }}/.ssh/ssh-authorized-20211220.pem
+     with_items:
+      - "{{ user }}"
+   - name: config add
+     template:
+       src: ./template/user_keys/config
+       dest: /home/TMON/{{ item }}/.ssh/config
+     with_items:
+      - "{{ user }}"
+   - name: user-authorized change
+     template:
+       src: ./template/user_keys/authorized_keys
+       dest: /home/TMON/{{ item }}/.ssh/authorized_keys
+     with_items:
+      - "{{ user }}"
+   - name: chown set
+     command: chown {{ item }}:{{ group }} -R /home/TMON/{{ item }}/.ssh/
+     with_items:
+      - "{{ user }}"
+   - name: chmod set
+     command: chmode 400 /home/TMON/{{ item }}/.ssh/ssh-authorized-20211220.pem
+     with_items:
+      - "{{ user }}"
+
+  vars:
+    hosts: "all"
+    group: "tmon-dba"
+    user:
+     - bylee
+     - crippled
+     - donghoon_lee
+     - gytjdlee
+     - next1009
+     - rosemary189

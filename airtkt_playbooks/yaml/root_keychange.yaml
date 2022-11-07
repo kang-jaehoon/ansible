@@ -1,0 +1,9 @@
+---
+- hosts: airtkt
+  remote_user: ec2-user
+  become: true
+  tasks:
+   - name: root-authorized change
+     template:
+       src: ./template/authorized_keys
+       dest: /home/ec2-user/.ssh/authorized_keys

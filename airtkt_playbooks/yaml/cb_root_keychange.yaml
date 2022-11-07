@@ -1,0 +1,9 @@
+---
+- hosts: cb
+  remote_user: centos
+  become: true
+  tasks:
+   - name: root-authorized change
+     template:
+       src: ./template/authorized_keys
+       dest: /home/centos/.ssh/authorized_keys
